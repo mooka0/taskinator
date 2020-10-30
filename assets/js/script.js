@@ -99,6 +99,7 @@ var createTaskEl = function (taskDataObj) {
 
     // add task id as a custom attribute
     listItemEl.setAttribute("data-task-id", taskIdCounter);
+    listItemEl.setAttribute("draggable", "true");
 
     var taskInfoEl = document.createElement("div");
     taskInfoEl.className = "task-info";
@@ -210,8 +211,15 @@ var deleteTask = function (taskId) {
     taskSelected.remove();
 };
 
+var dragTaskHandler = function(event) {
+    console.log("event.target:", event.target); 
+    console.log("event.type:", event.type);
+    console.log("event", event);
+  } 
+
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 
 formEl.addEventListener("submit", taskFormHandler);
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+pageContentEl.addEventListener("dragstart", dragTaskHandler);
