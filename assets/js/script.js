@@ -308,9 +308,43 @@ var dragLeaveHandler = function (event) {
 
 }
 
-var saveTasks = function() {
+var saveTasks = function () {
     localStorage.setItem("tasks", JSON.stringify(tasks));
-  }
+}
+//   Gets task items from localStorage.
+
+//   Converts tasks from the string format back into an array of objects.
+
+//   Iterates through a tasks array and creates task elements on the page from it.
+
+var loadTasks = function () {
+    var tasks = localStorage.getItem("tasks");
+
+    tasks = JSON.parse(tasks);
+
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === taskIdCounter) {
+
+        }
+        var listItemEl = document.createElement("li");
+        listItemEl.className = "task-item";
+
+        listItemEl.setAttribute("data-task-id", tasks[i].id);
+        listItemEl.setAttribute("draggable", "true");
+
+        var taskInfoEl = document.createElement("div");
+        taskInfoEl.className = "task-info";
+        taskInfoEl.innerHTML = "<h3 class='task-name'>" + tasks[i].name + "</h3><span class='task-type'>" + tasks[i].type + "</span>";
+        listItemEl.appendChild(taskInfoEl);
+
+        var taskActionsEl = createTaskActions(tasks[i].id);
+        taskActionsEl.appendChild(listItemEl);
+        console.log(listItemEl);
+
+    }
+
+}
+loadTasks();
 
 
 pageContentEl.addEventListener("click", taskButtonHandler);
